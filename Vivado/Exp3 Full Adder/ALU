@@ -28,3 +28,7 @@ output OF
    assign Result[1] = P2^C1;
    assign Result[0] = P1;
    
+   
+   assign CF = C4;
+   assign OF = C3^C4;
+endmodule
