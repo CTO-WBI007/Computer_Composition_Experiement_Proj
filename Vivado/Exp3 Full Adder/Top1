@@ -1,0 +1,60 @@
+module Top1(
+input CLK,
+input [3:0] data1,
+input [3:0] data2,
+input button1,
+input button2,
+
+output [3:0] seg,
+output [6:0] a_to_g,
+output CF,
+output OF
+    );
+    
+ wire clk_wire;
+ wire [7:0] Result;
+ wire [7:0] mux_result;
+ reg display_switch;
+ 
+CLK_div clk_div1(
+.CLK_in(CLK),
+.CLK_out(clk_wire)
+);
+
+Display display1(
+.CLK(CLK),
+.Data(mux_result),
+.isResult(display_switch),
+.seg(seg),
+.a_to_g(a_to_g)
+);
+
+Mux2 mux2(
+.data1({data1,data2}),
+.data2(Result),
+.Sel(display_switch),
+.Mux_Result(mux_result)
+);
+
+always@(*) begin
+if(button1 == 1)
+display_switch <= 0;
+
+if(button2 == 1)
+display_switch <= 1;
+
+end
+
+ALU alu1(
+.data1(data1),
+.data2(data2),
+.Result(Result),
+.CF(CF),
+.OF(OF)
+);
+
+
+
+
+
+endmodule
