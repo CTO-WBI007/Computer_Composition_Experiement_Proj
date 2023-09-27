@@ -1,0 +1,30 @@
+module ALU(
+input [3:0] data1,
+input [3:0] data2,
+output [3:0] Result,
+output CF,
+output OF
+    );
+   wire G1,G2,G3,G4;
+   wire P1,P2,P3,P4;
+   
+   assign G1 = data1[0] & data2[0];
+   assign P1 = data1[0] ^ data2[0];
+   assign G2 = data1[1] & data2[1];
+   assign P2 = data1[1] ^ data2[1];
+   assign G3 = data1[2] & data2[2];
+   assign P3 = data1[2] ^ data2[2];
+   assign G4 = data1[3] & data2[3];
+   assign P4 = data1[3] ^ data2[3];
+   
+   wire C1,C2,C3,C4;
+   assign C1 = G1;
+   assign C2 = G2|(P2&(G1));
+   assign C3 = G3|(P3&(G2|(P2&(G1))));
+   assign C4 = G4|(P4&( G3|(P3&(G2|(P2&(G1))))));
+   
+   assign Result[3] = P4^C3;
+   assign Result[2] = P3^C2;
+   assign Result[1] = P2^C1;
+   assign Result[0] = P1;
+   
