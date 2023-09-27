@@ -1,0 +1,13 @@
+module Mux2(
+input [7:0] data1,
+input [7:0] data2,
+input Sel,
+output reg[7:0] Mux_Result
+    );
+    always@(*) begin
+    if(Sel == 0)
+    Mux_Result <= data1;
+    else
+    Mux_Result <= data2;
+    end
+endmodule
