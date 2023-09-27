@@ -1,1 +1,12 @@
-
+module ANDgate(
+    input CLK,
+    input data1,
+    input data2,
+    output reg result
+     );
+     always@(posedge CLK) begin
+     result <= data1&&data2;
+     end  
+     
+    
+endmodule
