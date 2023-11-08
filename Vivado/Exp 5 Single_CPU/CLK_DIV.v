@@ -1,0 +1,28 @@
+module clk_div#(parameter N=99999)(
+    input CLK_in,
+    output CLK_out
+    );
+    
+    reg [31:0] counter=0;
+    reg out=0;
+    
+    //每过N时钟周期，clock_out反转一次。
+    always@(posedge CLK_in)begin
+        if(counter ==N-1)begin
+            counter<=0;
+        end
+        else begin
+            counter<=counter+1;
+        end
+    end
+    
+    
+    always@(posedge CLK_in)begin
+        if(counter==N-1)begin
+            out<=!out;
+        end
+     end
+     
+     
+     assign CLK_out=out;
+endmodule
